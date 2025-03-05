@@ -83,6 +83,7 @@ def logout():
     return redirect(url_for('index'))
 
 
+# Decorator to check user is logged in before editing blog posts
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
