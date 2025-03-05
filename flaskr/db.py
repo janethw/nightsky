@@ -42,6 +42,10 @@ sqlite3.register_converter(
 )
 
 
+# The `init_app` function
 def init_app(app):
+    # Register the `close_db` function to be called when the app context ends
     app.teardown_appcontext(close_db)
+
+    # Register the `init_db_command` with the Flask CLI
     app.cli.add_command(init_db_command)
