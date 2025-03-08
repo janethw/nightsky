@@ -1,17 +1,28 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
-)
+    Blueprint, flash, g, redirect, render_template, request, url_for, current_app)
 from werkzeug.exceptions import abort
 
 from flaskr.auth import login_required
 from flaskr.db import get_db
+
+import requests
 
 bp = Blueprint('apod', __name__)
 
 
 @bp.route('/apod')
 def apod():
-    return render_template('apod/apod_index.html')
+    try:
+        api_key = current_app.config['API_KEY']
+        url = f"https://api.nasa.gov/planetary/apod?api_key={api_key}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            apod_image = response.json()
+            return render_template('apod/apod_index.html', image_url=apod_image['url'], title=apod_image['title'])
+        else:
+            return f"Error - unable to fetch data. {response.status_code}", 500
+    except Exception as e:
+        return f"Error occurred: {e}", 500
 
 
 # @bp.route('/create', methods=('GET', 'POST'))
