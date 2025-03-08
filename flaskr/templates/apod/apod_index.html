@@ -3,7 +3,8 @@
 {% block header %}
   <h1>{% block title %}Astronomy Picture of the Day{% endblock %}</h1>
 {% endblock %}
-
+    
 {% block content %}
-  
+  <h1>{{ title }}</h1>
+  <img src="{{ image_url }}" alt="NASA APOD Image" style="max-width: 100%; height: auto;">
 {% endblock %}
