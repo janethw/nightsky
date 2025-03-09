@@ -5,6 +5,22 @@
 {% endblock %}
     
 {% block content %}
+  <div class="tcSlider">
+    <div class="slider">
+      <a class="slide" href="#">
+        <div class="slider_img" style="background-image:url(1.jpg)"></div>
+        <div class="slider_link">{{ title }}</div>
+      </a>
+      <div class="slide">
+        <div class="slider_img" style="background-image:url(2.jpg)"></div>
+        <a class="slider_link" href="#">Slide 02</a>
+      </div>
+      <div class="slide">
+        <div class="slider_img" style="background-image:url(3.jpg)"></div>
+        <a class="slider_link" href="#">Slide 03</a>
+      </div>
+    </div>
+  </div>
   <h1>{{ title }}</h1>
   <img src="{{ image_url }}" alt="NASA APOD Image" style="max-width: 100%; height: auto;">
 {% endblock %}
