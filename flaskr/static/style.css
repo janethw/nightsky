@@ -25,14 +25,14 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
 
-/* from: https://www.cssscript.com/automatic-vertical-tc-slider/ */
+/* adapted from: https://www.cssscript.com/automatic-vertical-tc-slider/ */
 :root {
     /* slider width */
     --slide-width: 800px;
     /* slider aspect ratio (width/height) */
-    --slide-aspect: 3;
+    --slide-aspect: 2;
     /* animation time */
-    --slide-time: 15s;
+    --slide-time: 90s;
   }
   /* slider styles */
   .tcSlider {
@@ -66,8 +66,73 @@ input[type=submit] { align-self: start; min-width: 10em; }
     bottom: 20px;
     left: 20px;
   }
+
   /* animation */
   @keyframes tc_slider {
+    0% {
+      margin-top: 0;
+    }
+    8% {
+      margin-top: 0;
+    }
+    13% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -1);
+    }
+    18% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -1);
+    }
+    23% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -2);
+    }
+    28% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -2);
+    }
+    33% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -3);
+    }
+    38% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -3);
+    }
+    43% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -4);
+    }
+    48% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -4);
+    }
+    53% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -5);
+    }
+    58% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -5);
+    }
+    63% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -6);
+    }
+    68% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -6);
+    }
+    73% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -7);
+    }
+    78% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -7);
+    }
+    83% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -8);
+    }
+    88% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -8);
+    }
+    93% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -9);
+    }
+    98% {
+      margin-top: calc(var(--slide-width) / var(--slide-aspect) * -9);
+    }
+  }
+
+  /* animation */
+  /* @keyframes tc_slider {
     0% {
       margin-top: 0;
     }
@@ -86,4 +151,4 @@ input[type=submit] { align-self: start; min-width: 10em; }
     97% {
       margin-top: calc(var(--slide-width) / var(--slide-aspect) * -2);
     }
-  }
+  } */
