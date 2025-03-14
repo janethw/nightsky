@@ -32,7 +32,7 @@ input[type=submit] { align-self: start; min-width: 10em; }
     /* slider aspect ratio (width/height) */
     --slide-aspect: 2;
     /* animation time */
-    --slide-time: 90s;
+    --slide-time: 60s;
   }
   /* slider styles */
   .tcSlider {
