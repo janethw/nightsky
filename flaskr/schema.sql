@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS nasa;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,4 +15,17 @@ CREATE TABLE post (
   title TEXT NOT NULL,
   body TEXT NOT NULL,
   FOREIGN KEY (author_id) REFERENCES user (id)
+);
+
+CREATE TABLE nasa (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  url_apod TEXT,
+  title TEXT,
+  year_apod INTEGER,
+  month_apod INTEGER,
+  day_apod INTEGER, 
+  explanation TEXT,
+  copyright TEXT,
+  hdurl TEXT,
+  media_type TEXT
 );
