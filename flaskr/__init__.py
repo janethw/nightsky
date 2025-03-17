@@ -3,6 +3,17 @@ import os
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import DeclarativeBase
+
+
+# pass subclass of DeclarativeBase into the constructor
+# Ref: https://flask-sqlalchemy.readthedocs.io/en/stable/quickstart/
+class Base(DeclarativeBase):
+    pass
+
+# Initialise the db object, ie the instance of SQLAlchemy
+db = SQLAlchemy(model_class=Base)
+
 
 def create_app(test_config=None):
     
@@ -14,7 +25,10 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY=os.getenv('SECRET_KEY'),
         API_KEY=os.getenv('API_KEY'),
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        # DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+        # Create a data.db file in the instance folder
+        SQLALCHEMY_DATABASE_URI = "sqlite:///instance/data.db",
+        SQLALCHEMY_TRACK_NOTIFICATIONS = False
     )
 
     if test_config is None:
@@ -35,8 +49,16 @@ def create_app(test_config=None):
     # def hello():
     #     return 'Welcome to SkyApp'
 
-    from . import db
+    # tie the db to the Flask app
     db.init_app(app)
+
+    from .models import User, Post, Nasa
+    # Reference model classes to eliminate unused import warning
+    __all__ = [User, Post, Nasa]
+
+    # Context required to initialise dbs as not in a session
+    with app.app_context():
+        db.create_all()
 
     from . import auth
     app.register_blueprint(auth.bp)
