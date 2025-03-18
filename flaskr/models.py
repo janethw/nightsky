@@ -9,7 +9,6 @@ class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(unique=True, nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
-    email: Mapped[str] = mapped_column(nullable=False)
     posts: Mapped[List["Post"]] = relationship(back_populates="author", cascade="all, delete-orphan")
                   
                   
