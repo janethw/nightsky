@@ -1,5 +1,6 @@
 from sqlalchemy import ForeignKey, Integer, String, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from datetime import datetime
 from typing import List
 from . import db
 
@@ -18,7 +19,7 @@ class Post(db.Model):
     # Ref: 'Many To One' @ https://docs.sqlalchemy.org/en/20/orm/basic_relationships.html#one-to-one
     author_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
     # Ref: https://www.geeksforgeeks.org/ensuring-timestamp-storage-in-utc-with-sqlalchemy/
-    created: Mapped[DateTime] = mapped_column(timezone=True, server_default=func.now())
+    created: Mapped[datetime] = mapped_column(server_default=func.now())
     title: Mapped[str]
     body: Mapped[str]
     author: Mapped["User"] = relationship(back_populates="posts")

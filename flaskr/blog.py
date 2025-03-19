@@ -4,8 +4,7 @@ from flask import (
 from werkzeug.exceptions import abort
 
 from flaskr.auth import login_required
-# from flaskr.db import get_db
-from flaskr.models import Post, User, Nasa
+from flaskr.models import Post, User
 from . import db
 
 bp = Blueprint('blog', __name__)
@@ -19,7 +18,7 @@ def index():
     #     ' FROM post p JOIN user u ON p.author_id = u.id'
     #     ' ORDER BY created DESC'
     # ).fetchall()
-    posts = db.session.execute(db.select(Post.id, Post.title, Post.author_id, Post.body, Post.created, User.username).join(User, Post.author_id == User.id)).scalars()
+    posts = db.session.execute(db.select(Post).where(Post.id == id)).scalars().all()
     return render_template('blog/index.html', posts=posts)
 
 
@@ -46,7 +45,7 @@ def create():
             post = Post(
                 title=title,
                 body=body
-                authod_id=g.user['id']
+                author_id=g.user['id']
             )
             db.session.add(post)
             db.session.commit()
@@ -62,7 +61,8 @@ def get_post(id, check_author=True):
     #     ' WHERE p.id = ?',
     #     (id,)
     # ).fetchone()
-    post = db.session.execute(db.select(Post.id, Post.author_id, Post.title, Post.body, Post.created, User.username).join(User, Post.author_id == User.id).where(Post.id == id).first())
+    # Ensure one or none posts are fetched
+    post = db.session.execute(db.select(Post).where(Post.id == id).scalar_one_or_none())
 
     if post is None:
         abort(404, f"Post id {id} doesn't exist.")
