@@ -4,7 +4,7 @@ from flask import (
 from werkzeug.exceptions import abort
 
 from flaskr.auth import login_required
-from flaskr.models import Post, User
+from flaskr.models import Post
 from . import db
 
 bp = Blueprint('blog', __name__)
@@ -44,7 +44,7 @@ def create():
             # )
             post = Post(
                 title=title,
-                body=body
+                body=body,
                 author_id=g.user['id']
             )
             db.session.add(post)
