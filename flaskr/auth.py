@@ -81,6 +81,7 @@ def load_logged_in_user():
 
     if user_id is None:
         g.user = None
+    # this stores g.user as an ORM object, so becomes later accessed by eg, g.user.id
     else:
         # g.user = get_db().execute(
         #     'SELECT * FROM user WHERE id = ?', (user_id,)
