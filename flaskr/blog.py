@@ -18,7 +18,8 @@ def index():
     #     ' FROM post p JOIN user u ON p.author_id = u.id'
     #     ' ORDER BY created DESC'
     # ).fetchall()
-    posts = db.session.execute(db.select(Post).where(Post.id == id)).all()
+    posts = db.session.scalars(db.select(Post)).all()
+    print(posts)
     return render_template('blog/index.html', posts=posts)
 
 
@@ -45,7 +46,7 @@ def create():
             post = Post(
                 title=title,
                 body=body,
-                author_id=g.user['id']
+                author_id=g.user.id
             )
             db.session.add(post)
             db.session.commit()
@@ -67,7 +68,7 @@ def get_post(id, check_author=True):
     if post is None:
         abort(404, f"Post id {id} doesn't exist.")
 
-    if check_author and post.id != g.user['id']:
+    if check_author and post.id != g.user.id:
         abort(403)
 
     return post
