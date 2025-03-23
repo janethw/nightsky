@@ -58,7 +58,7 @@ def login():
         #     'SELECT * FROM user WHERE username = ?', (username,)
         # ).fetchone()
 
-        user = db.session.execute(db.select(User).where(User.username == username).scalar_one_or_none())
+        user = db.session.scalars(db.select(User).where(User.username == username)).one_or_none()
 
         if user is None:
             error = 'Incorrect username.'
@@ -85,7 +85,7 @@ def load_logged_in_user():
         # g.user = get_db().execute(
         #     'SELECT * FROM user WHERE id = ?', (user_id,)
         # ).fetchone()
-        g.user = db.session.execute(db.select(User).where(User.id == user_id).scalar_one_or_none())
+        g.user = db.session.scalars(db.select(User).where(User.id == user_id)).one_or_none()
 
 @bp.route('/logout')
 def logout():
