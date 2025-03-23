@@ -27,7 +27,7 @@ def create_app(test_config=None):
         API_KEY=os.getenv('API_KEY'),
         # DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
         # Create a data.db file in the instance folder
-        SQLALCHEMY_DATABASE_URI = "sqlite:///instance/data.db",
+        SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(app.instance_path, 'data.db')}",
         SQLALCHEMY_TRACK_NOTIFICATIONS = False
     )
 
